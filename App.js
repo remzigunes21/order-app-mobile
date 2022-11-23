@@ -1,5 +1,5 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components/native";
 
 import {
@@ -13,6 +13,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { RestaurantsContextProvider } from "./src/services/restaurants/mock/restaurants.context";
 const Tab = createBottomTabNavigator();
 
 function Maps() {
@@ -63,13 +64,21 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={createScreenOptions}>
-            <Tab.Screen name="Restaurant" component={RestaurantsScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-            <Tab.Screen name="Map" component={Maps} />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RestaurantsContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator screenOptions={createScreenOptions}>
+              <Tab.Screen
+                options={() => ({
+                  headerShown: false,
+                })}
+                name="Restaurant"
+                component={RestaurantsScreen}
+              />
+              <Tab.Screen name="Settings" component={SettingsScreen} />
+              <Tab.Screen name="Map" component={Maps} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantsContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
