@@ -1,5 +1,5 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React from "react";
 import { ThemeProvider } from "styled-components/native";
 
 import {
