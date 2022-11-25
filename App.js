@@ -15,6 +15,7 @@ import { Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { RestaurantsContextProvider } from "./src/services/restaurants/mock/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
+import { Navigation } from "./src/infrastructure/navigation";
 const Tab = createBottomTabNavigator();
 
 function Maps() {
@@ -67,19 +68,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <LocationContextProvider>
           <RestaurantsContextProvider>
-            <NavigationContainer>
-              <Tab.Navigator screenOptions={createScreenOptions}>
-                <Tab.Screen
-                  options={() => ({
-                    headerShown: false,
-                  })}
-                  name="Restaurant"
-                  component={RestaurantsScreen}
-                />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
-                <Tab.Screen name="Map" component={Maps} />
-              </Tab.Navigator>
-            </NavigationContainer>
+            <Navigation />
           </RestaurantsContextProvider>
         </LocationContextProvider>
       </ThemeProvider>
