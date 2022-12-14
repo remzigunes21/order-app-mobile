@@ -9,16 +9,27 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const onLogin = (email, password) => {
-    setIsLoading(true);
-    loginRequest(email, password)
-      .then((u) => {
-        setUser(u);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        setError(e.toString());
-      });
+    setIsLoading(false);
+    if (email === "rem@gmail.com" && password === "1234") {
+      const obj = {
+        email: "rem@gmail.com",
+        password: "1234",
+      };
+      setUser(obj);
+      setIsLoading(false);
+    } else {
+      setError("error");
+      setIsLoading(false);
+    }
+    // loginRequest(email, password)
+    //   .then((u) => {
+    //     setUser(u);
+    //     setIsLoading(false);
+    //   })
+    //   .catch((e) => {
+    //     setIsLoading(false);
+    //     setError(e.toString());
+    //   });
   };
 
   const onRegister = (email, password, repeatedPassword) => {
@@ -39,6 +50,11 @@ export const AuthenticationContextProvider = ({ children }) => {
     //   });
   };
 
+  const onLogout = () => {
+    setUser(null);
+    setIsLoading(false);
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -48,6 +64,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         error,
         onLogin,
         onRegister,
+        onLogout,
       }}
     >
       {children}
